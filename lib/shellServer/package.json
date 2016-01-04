@@ -1,0 +1,12 @@
+{
+  "name": "shellServer",
+  "description": "A web terminal server for sheldon.",
+  "author": "Jeremy Ebert",
+  "version": "0.0.1",
+  "dependencies": {
+        "socket.io": "^1.1.5",
+         "socket.io-stream": "^0.9.0",
+         "express": "^4.12.3",
+         "term.js":"^0.0.7"
+    }
+}

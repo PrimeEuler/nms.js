@@ -1,0 +1,9 @@
+{
+  "name": "telnet-client",
+  "description": "A simple telnet client.",
+  "author": "Jeremy Ebert",
+  "version": "0.0.1",
+  "dependencies": {
+        "telnet-stream": "^0.0.4"
+    }
+}

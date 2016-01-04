@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <g id="svg_1" transform="rotate(90 10 25) scale(2.5 2.5)" fill="none" stroke="#cc8139">
+
+      <line fill="#ff7f00" id="svg_4" stroke-linecap="round" y2="5" x2="-6" y1="7" x1="-6"/>
+      <line fill="#ff7f00" id="svg_5" stroke-linecap="round" y2="6" x2="2" y1="5" x1="-6"/>
+      <line fill="#ff7f00" id="svg_6" stroke-linecap="round" y2="6" x2="2" y1="7" x1="-6"/>
+      <ellipse ry="1" rx="1" id="svg_7" cy="6" cx="6" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" fill="#cc8139"/>
+    </g>
+  </g>
+</svg>

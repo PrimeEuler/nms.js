@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+    <title>pipe</title>
+    
+    <!--custom jquery-->
+    <link rel="stylesheet"  type="text/css" media="screen" href="css/flat-8139-theme/jquery-ui-1.10.4.custom.min.css"/>
+    <script type='text/javascript' src="js/jquery-1.10.2.min.js"></script>
+    <script type='text/javascript' src="js/jquery-ui-1.10.4.custom.min.js"></script>
+    
+    <!--touch, dialogextend and jquery mouswheel plugin -->
+    <script type='text/javascript' src="js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="js/jquery.dialogextend.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+    
+    <!--client style -->
+    <link rel="stylesheet" href="css/client.css"/>
+    
+     <!--socket.io-stream-->
+    <script type='text/javascript' src="/socket.io/socket.io.js"></script>
+    <script type='text/javascript' src="/js/socket.io-stream.js"></script>
+    
+    <!--streams = term.js, ace, handsontable ... -->
+    <script type='text/javascript' src="term.js"></script>
+    <!--<script type="text/javascript" src="//rawgithub.com/ajaxorg/ace-builds/master/src-noconflict/ace.js"></script>-->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+
+    
+
+</head>
+
+<body >
+    <script type="text/javascript">
+    
+    var socket = io.connect();
+    
+    Terminal.colors[256] = '';
+    Terminal.colors[257] = '';  
+    
+    $('<div/>', {
+        id: 'TERMINAL',
+        title: 'terminal',
+        style: 'background-image: url("css/images/terminal-cc8139.svg")',
+        "class": 'new-div-window'
+    }).appendTo("body");
+    $('#TERMINAL').click(function () {
+                var stream = ss.createStream({objectMode: true})// {decodeStrings: false,  objectMode: true});//encoding: 'utf-8',
+                stream.setEncoding('utf8');
+                var terminal = new Terminal({ cols: 80, rows:24, screenKeys: true, convertEol:true });
+                ss(socket).emit('TERMINAL', stream, terminal.options);
+                //hack for socket.io-stream events from server
+                ss(socket).on(stream.id,function(e){
+                    console.log(e)
+                    stream.emit(e.event,e.data);
+                });
+                stream.width = (terminal.cols * 8) + 30;
+                stream.height = (terminal.rows * 15) + 50;
+                //IOCRL
+                stream.ioCTL = function(event){
+                    var p = {
+                        event:event.type,
+                        position: $(event.target).dialog("option", "position"),
+                        height: Math.round($(event.target).dialog('option', 'height')),
+                        width: Math.round($(event.target).dialog('option', 'width')),
+                        minHeight: $(event.target).dialog('option', 'minHeight'),
+                        minWidth: $(event.target).dialog('option', 'minWidth')
+                    }
+                    //TIOCSWINSZ
+                    if(event.type.indexOf('resize') > -1){
+                        
+                        var e = {
+                            event:'resize',
+                            data:{
+                                rows:Math.round((p.height - 50)/15),
+                                cols:Math.round((p.width - 30)/8),
+                            }
+                        };
+                        terminal.resize(e.data.cols,e.data.rows)
+                        ss(socket).emit(stream.id,e);
+                    }
+                };
+                streamUI(stream);
+                terminal.open(document.getElementById(stream.id));
+                terminal.on('resize',function(){
+                    console.log(terminal.cols,terminal.rows)
+                })
+                stream.pipe(terminal).pipe(stream);
+                stream.on('resize', function(e){
+                    terminal.resize(e.cols,e.rows)
+                    stream.width = (terminal.cols * 8) + 32;
+                    stream.height = (terminal.rows * 15) + 50;
+                    $( "#" + stream.id ).dialog( "option", "width", stream.width );
+                    $( "#" + stream.id ).dialog( "option", "height", stream.height );
+                });
+                stream.on('end',function(){
+                    
+                    $( "#" + stream.id ).dialog( "destroy" )
+                    terminal.destroy();
+                })
+    });
+    var streamIndex = -1;
+    function streamUI(stream){
+    streamIndex+=5;
+                $('<div/>', { 
+                    id: stream.id, 
+                    style: 'background-image: url("unit1.png"); background-repeat:no-repeat; background-size: contain;background-position: center;'
+                    })
+                    .appendTo("body")
+                    .dialog({
+                                "width": stream.width,
+                                "height": stream.height,
+                                "minHeight":stream.height,
+                                "minWidth": stream.width,
+                                "position": [50 + streamIndex   ,50 + streamIndex],
+                                "title": stream.id,
+                                "style":'background-image: url("unit1.png"); background-repeat:no-repeat; background-size: contain;background-position: center;',
+                                "close" : function(event, ui){ 
+                                   stream.emit('end'); 
+                                }
+                        
+                    })
+                    .dialogExtend({
+                                "closable": true,
+                                "minimizable": true,
+                                "maximizable": true,
+                                "collapsable": true,
+                                "dblclick": "collapse",
+                                "titlebar": "transparent",
+                                "minimizeLocation": "left"
+                    })
+                    .data("uiDialog")._title = function (title) { title.html(this.options.title); };
+                    $("#" + stream.id).bind("dialogdragstop", stream.ioCTL);
+                    $("#" + stream.id).bind("dialogresizestop", stream.ioCTL);
+                    $("#" + stream.id).bind("dialogextendminimize", stream.ioCTL);
+                    $("#" + stream.id).bind("dialogextendmaximize", stream.ioCTL);
+                    $("#" + stream.id).bind("dialogextendcollapse", stream.ioCTL);
+                    $("#" + stream.id).bind("dialogextendrestore", stream.ioCTL);
+                    
+
+    }
+    ss(socket).on('EDITOR',function(stream,options){
+                stream.width = (80 * 8) + 30;
+                stream.height = (24 * 15) + 50;
+                stream.type = 'editor';
+                streamUI(stream);
+                
+                
+                var title_bar = '<span style="float:left;">' +
+                                    '<button title="share" '+
+                                    'style="height:20px;width:30px;" ' +
+                                    'id="share_' + stream.id + '"/></span>';
+                    if(stream.type === 'editor'){
+                        title_bar+='<span style="float:left;">' + 
+                                    '<button title="save" ' + 
+                                    'style="height:20px;width:30px;" ' +
+                                    'id="save_' + stream.id + '"/></span>' +
+                                    '<span style="float:center;">' + 
+                                    '<div id="title_' + stream.id + '"> &nbsp &nbsp' +
+                                    stream.id + '</div></span>';
+                    }
+                $("#" + stream.id).dialog('option', 'title', title_bar);
+                 $('#share_' + stream.id).button({
+                        icons: {
+                            primary: 'ui-icon-signal-diag'
+                        }
+                    })
+                $('#share_' + stream.id).click(function () {
+                    var e = {
+                        event:'share'
+                    }
+                    ss(socket).emit(stream.id,e);
+                });
+                $('#save_' + stream.id).button({
+                    icons: {
+                    primary: 'ui-icon-disk'
+                    }
+                });
+                $('#save_' + stream.id).click(function () {
+                    var e = {
+                        event:'save'
+                    }
+                    ss(socket).emit(stream.id,e);
+                });
+                ss(socket).on(stream.id,function(e){
+                    stream.emit(e.event,e.data);
+                });
+                var editor = ace.edit(stream.id);
+                editor.version = 0;
+                editor.setByAPI = false;
+                editor.setFontSize(12);
+                editor.setShowPrintMargin(false);
+                editor.setTheme("ace/theme/monokai");
+                editor.getSession().setMode("ace/mode/javascript");
+                editor.on('change', function (delta) {
+                    if (!editor.setByAPI) {
+                        editor.version++;
+                        delta.version = editor.version;
+                        stream.write(delta)
+                    }
+                });
+                editor.setByAPI = true;
+                editor.setValue(stream.code);
+                editor.setByAPI = false;
+                
+                stream.on('data',function(data){
+                        editor.setByAPI = true;
+                        editor.getSession().getDocument().applyDeltas([data.data]);
+                        editor.setByAPI = false;
+                })
+    })
+    ss(socket).on('TERMINAL', function(stream, options){
+                streamUI(stream);
+                var terminal = new Terminal(options);
+                terminal.open(document.getElementById(stream.id));
+                stream.pipe(terminal).pipe(stream);
+                stream.on('end',function(){
+                    console.log('end');
+                })
+
+    }); 
+
+    
+    </script>
+</body>

@@ -1,0 +1,82 @@
+         html 
+        {         
+                background-color:#000000;
+            
+        }
+                    
+                    
+        @font-face {
+          font-family: 'GNU FreeMono';
+          font-style: normal;
+          src: url('FreeMono.ttf') /*format('truetype');*/
+        }   
+        div {
+           word-spacing: normal;
+           letter-spacing: normal;
+        }
+        
+        span {
+           word-spacing: normal;
+           letter-spacing: normal;
+           display: inline-block;
+        }
+        body 
+	    {                            
+	                background-color: transparent;
+                    color:#595540;
+		            padding: 0px 0 0px;
+                    scrollbar-base-color: #595540;
+                    scrollbar-3dlight-color: #595540;
+                    scrollbar-highlight-color: #595540;
+                    scrollbar-track-color: #262626;
+                    scrollbar-arrow-color: #cc8139;
+                    scrollbar-shadow-color: #595540;
+                    scrollbar-dark-shadow-color: #595540;
+	        
+	    }	
+        ::-webkit-scrollbar {
+            border-radius: 0px;
+        }
+       ::-webkit-scrollbar-track {
+            border-radius: 0px;
+            padding-right: 10px;
+        }
+ 
+        ::-webkit-scrollbar-thumb {
+            border-radius: 0px;
+            -webkit-box-shadow: inset 0 0 6px #cc8139; 
+            padding-right: 10px;
+        } 
+        ::-webkit-scrollbar-corner 
+        {
+            border-radius: 0px;
+        }
+        .new-div-window  
+	    {           cursor:pointer;
+                    border-radius:5px;
+                    width: 50px;
+                    height:50px;
+                    float:left;
+                    overflow:hidden;
+                    background-position:7px 5px;
+                    background-size: 100% 100%;
+                    margin-top:5px;
+                    background-repeat:no-repeat;
+                    padding-left: 0px; } 
+      .reverse-video {
+                    color: #262626;
+                    background: #cc8139;
+                    }
+
+       .terminal {
+                    font-family: 'GNU FreeMono';
+		            font-size: 10pt;
+		            font-weight: 900;
+              }
+
+        .ui-dialog {
+                background:rgba(38, 38, 38, 0.60);
+                box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+            }
+
+      

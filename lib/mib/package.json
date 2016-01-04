@@ -1,0 +1,6 @@
+{
+  "name": "mib",
+  "description": "SNMP MIB parser",
+  "author": "Jeremy Ebert",
+  "version": "0.0.1"
+}

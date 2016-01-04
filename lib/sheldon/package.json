@@ -1,0 +1,11 @@
+{
+  "name": "sheldon",
+  "description": "A node.js unix-like shell based on Sheldon from U.S. Acres",
+  "author": "Jeremy Ebert",
+  "version": "0.0.1",
+  "dependencies": {
+        "minimist": "^1.1.3",
+         "lodash": "^2.4.1",
+         "keypress": "^0.2.1"
+    }
+}
