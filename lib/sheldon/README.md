@@ -2,4 +2,4 @@ sheldon
 ======
 What is sheldon?:
 ======
-sheldon is an open-source unix-like shell written in JavaScript. 
+Sheldon is a node.js unix-like shell based on Sheldon from U.S. Acres
