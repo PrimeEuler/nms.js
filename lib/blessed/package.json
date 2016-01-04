@@ -1,0 +1,9 @@
+{
+  "name": "NMS.js-blessed",
+  "description": "Network management system blessed addon",
+  "author": "Jeremy Ebert",
+  "version": "0.0.1",
+  "dependencies": {
+        "request": "^2.27.0",
+    }
+}
