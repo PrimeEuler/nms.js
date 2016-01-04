@@ -4,6 +4,7 @@
   "author": "Jeremy Ebert",
   "version": "0.0.1",
   "dependencies": {
-        "request": "^2.27.0"
+        "request": "^2.27.0",
+        "term.js": "0.0.7"
     }
 }
