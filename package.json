@@ -1,6 +1,6 @@
 {
   "name": "NMS.js",
-  "description": "Network management sytem",
+  "description": "Network management system",
   "author": "Jeremy Ebert",
   "version": "0.0.1",
   "dependencies": {
