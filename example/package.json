@@ -1,0 +1,9 @@
+{
+  "name": "NMS.js-webNMS",
+  "description": "Network management system blessed web example",
+  "author": "Jeremy Ebert",
+  "version": "0.0.1",
+  "dependencies": {
+        "requirejs": "^2.1.22"
+    }
+}
