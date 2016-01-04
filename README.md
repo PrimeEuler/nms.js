@@ -1,7 +1,7 @@
 NMS.js
 ======
 
-Open source network management sytem single-page application (SPA).
+Open source network management system single-page application (SPA).
 
 ToDo:
 ```bash
