@@ -88,8 +88,8 @@
                 stream.pipe(terminal).pipe(stream);
                 stream.on('resize', function(e){
                     terminal.resize(e.cols,e.rows)
-                    stream.width = (terminal.cols * 8) + 32;
-                    stream.height = (terminal.rows * 15) + 50;
+                    stream.width = (terminal.cols * 8) + 60;
+                    stream.height = (terminal.rows * 15) + 100;
                     $( "#" + stream.id ).dialog( "option", "width", stream.width );
                     $( "#" + stream.id ).dialog( "option", "height", stream.height );
                 });
