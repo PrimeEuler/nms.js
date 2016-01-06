@@ -1,4 +1,4 @@
-NMS.js
+nms.js
 ======
 
 Open source network management system single-page application (SPA).
