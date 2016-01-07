@@ -186,17 +186,20 @@
                     stream.emit(e.event,e.data);
                 });
                 var editor = ace.edit(stream.id);
-                editor.version = 0;
+                editor.version = -1;
                 editor.setByAPI = false;
                 editor.setFontSize(12);
                 editor.setShowPrintMargin(false);
                 editor.setTheme("ace/theme/monokai");
                 editor.getSession().setMode("ace/mode/javascript");
                 editor.on('change', function (delta) {
+                    console.log(delta.version)
                     if (!editor.setByAPI) {
                         editor.version++;
                         delta.version = editor.version;
                         stream.write(delta)
+                    }else{
+                        
                     }
                 });
                 editor.setByAPI = true;
@@ -204,9 +207,16 @@
                 editor.setByAPI = false;
                 
                 stream.on('data',function(data){
-                        editor.setByAPI = true;
-                        editor.getSession().getDocument().applyDeltas([data.data]);
-                        editor.setByAPI = false;
+                        
+                        
+                        if(data.version > editor.version){
+                            editor.setByAPI = true;
+                            editor.version = data.version
+                            editor.getSession().getDocument().applyDeltas([data.data]);
+                            editor.setByAPI = false;
+                        }
+                        
+                        
                 })
     })
     ss(socket).on('TERMINAL', function(stream, options){

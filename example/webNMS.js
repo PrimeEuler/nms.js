@@ -42,25 +42,33 @@ var shellServer     = require('../lib/shellServer'),
                         })
                         editStream.on('save',function(){
                             //evalInContext( ACE.getValue() ,  NMS.context)
-                            var code = 'NMS.context.' + ACE.getValue()
-                            //console.log(code)
+                            var code =  ACE.getValue()
+                                //NMS.cli.inspect(code);
+                                
                                 try{
-                                    eval(code)
+                                    eval('NMS.context.' + code)
+                                    //var _path = code.split('=')[0].split(' ')[0];
+                                    //var ob = NMS._.get(NMS.context, _path);
+                                    //NMS.cli.inspect(ob);
+                                    
+                                    //console.log(code)
                                 }catch(e){
                                     NMS.cli.inspect(e)
                                 }
                         })
                         editStream.on('share',function(){
-                            console.log('share ' + editStream.id)
+                            NMS.cli.inspect('share ' + editStream.id);
+                            NMS.cli.prompt();
                         })
                         
-                        ACE.version = 1;
+                        ACE.version = 0;
                         ACE.on('change', function (delta){
-                            //console.log(delta)
+                            
                             if (!ACE.setByAPI) {
                                 ACE.version++;
                                 delta.version = ACE.version;
                                 editStream.write(delta)
+                                //console.log(delta)
                             }
                         });
                         var contents =  NMS._.get(NMS.context, path);
@@ -69,16 +77,17 @@ var shellServer     = require('../lib/shellServer'),
                             case 'object':
                                 contents =  path + ' = ' + util.inspect(contents, false,null);
                                 break;
-                            case 'symbol':
-                                break;
                             case 'function':
                                 contents =  path + ' = ' + contents.toString();
                                 break;
                             case 'undefined':
+                                break;
+                            case 'symbol':
                             case 'boolean':
                             case 'number':   
                             case 'string':
                             default:
+                                contents =  path + ' = ' + contents.toString();
                                 break;
         
                         }
