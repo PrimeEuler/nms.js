@@ -23,5 +23,5 @@ Please note that mib.js is not an SNMP stack. You can use mib.js together with
 been used such as [snmpjs](https://github.com/joyent/node-snmpjs).
 MIB
 ========
-A default set of MIB files are compiled by the LoadMIBs() function. The files are stored in the  [RFC_BASE_MINIMUM](https://github.com/PrimeEuler/NMS.js/tree/master/tools/SNMP/RFC_BASE_MINIMUM) directory.
+A default set of MIB files are compiled by the LoadMIBs() function. The files are stored in the  [RFC_BASE_MINIMUM](https://github.com/PrimeEuler/nms.js/tree/master/lib/mib/lib/RFC_BASE_MINIMUM) directory.
 You can persist JSON mib information to disk for quicker initiation. It is stored in the [mib.JSON](https://github.com/PrimeEuler/NMS.js/blob/master/tools/SNMP/lib/mib.JSON) file.
