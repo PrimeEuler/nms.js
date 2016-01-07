@@ -47,17 +47,17 @@ var shellServer     = require('../lib/shellServer'),
                                 
                                 try{
                                     eval('NMS.context.' + code)
-                                    //var _path = code.split('=')[0].split(' ')[0];
+                                    var _path = code.split('=')[0].split(' ')[0];
                                     //var ob = NMS._.get(NMS.context, _path);
-                                    //NMS.cli.inspect(ob);
-                                    
+                                    NMS.cli.inspect({save:true, path:_path});
+                                    NMS.cli.prompt();
                                     //console.log(code)
                                 }catch(e){
                                     NMS.cli.inspect(e)
                                 }
                         })
                         editStream.on('share',function(){
-                            NMS.cli.inspect('share ' + editStream.id);
+                            NMS.cli.inspect({share:true, id:editStream.id});
                             NMS.cli.prompt();
                         })
                         
