@@ -1,7 +1,6 @@
  var net = require('net'),
     nms = require('../'),
-    telnetStream    = require('../lib/telnet-client'),
-    Telnet = require('telnet-stream');
+    telnetStream    = require('../lib/telnet-client');
 
 var serverSocket = net.createServer(function(connection) {
 
