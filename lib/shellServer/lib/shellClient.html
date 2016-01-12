@@ -45,8 +45,8 @@
         "class": 'new-div-window'
     }).appendTo("body");
     $('#TERMINAL').click(function () {
-                var stream = ss.createStream({objectMode: true})// {decodeStrings: false,  objectMode: true});//encoding: 'utf-8',
-                stream.setEncoding('utf8');
+                var stream = ss.createStream({objectMode: false, encoding:'utf8'})// {decodeStrings: false,  objectMode: true});//encoding: 'utf-8',
+                //stream.setEncoding('utf8');
                 var terminal = new Terminal({ cols: 80, rows:24, screenKeys: true, convertEol:true });
                 ss(socket).emit('TERMINAL', stream, terminal.options);
                 //hack for socket.io-stream events from server
@@ -85,7 +85,8 @@
                 terminal.on('resize',function(){
                     console.log(terminal.cols,terminal.rows)
                 })
-                stream.pipe(terminal).pipe(stream);
+                
+                
                 stream.on('resize', function(e){
                     terminal.resize(e.cols,e.rows)
                     stream.width = (terminal.cols * 8) + 60;
@@ -93,6 +94,15 @@
                     $( "#" + stream.id ).dialog( "option", "width", stream.width );
                     $( "#" + stream.id ).dialog( "option", "height", stream.height );
                 });
+                //stream.pipe(terminal).pipe(stream);
+                stream.on('data',function(data){
+                    console.log(data.toString())
+                    terminal.write(data.toString())
+                })
+                terminal.on('data',function(data,e,f){
+                    //console.log(data,e,f)
+                    stream.write(data)
+                })
                 stream.on('end',function(){
                     
                     $( "#" + stream.id ).dialog( "destroy" )
