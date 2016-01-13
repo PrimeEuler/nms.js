@@ -19,6 +19,63 @@ Install
 ```bash
 $ npm install nms.js
 ```
+
+
+Examples
+===============
+
+* [cliNMS.js](https://github.com/PrimeEuler/nms.js/blob/master/example/cliNMS.js) Command line interface into nms.js: 
+
+```javascript
+var nms = require('nms.js')
+var NMS = new nms(process.stdin, process.stdout)
+```
+* [netNMS.js](https://github.com/PrimeEuler/nms.js/blob/master/example/netNMS.js) Telnet interface into nms.js: 
+
+```javascript
+ var net = require('net'),
+    nms = require('../'),
+    telnetStream    = require('../lib/telnet-client');
+
+var serverSocket = net.createServer(function(connection) {
+
+        var telnet = new telnetStream();  
+        
+        
+        connection.pipe(telnet.rx)
+        telnet.tx.pipe(connection)
+        
+        var NMS = new nms(telnet.rx, telnet.tx)
+
+        telnet.tx.writeDo(telnet.options.indexOf('windowSize'));
+});
+
+serverSocket.listen(9999,function(){
+    console.log('listening on ', 9999)
+});
+```
+
+* [netNMS.js](https://github.com/PrimeEuler/nms.js/blob/master/example/webNMS.js) Web ([term.js](https://github.com/chjj/term.js)) interface into nms.js:
+```javascript
+var shellServer     = require('../lib/shellServer'),
+    nms             = require('../'),
+    util            = require('util'),
+    webNMS          = new shellServer();
+    webNMS.on('connection', function (socket) {
+        socket.on('TERMINAL', function(stream){
+          //hack for socket.io-stream events client bind
+          socket.on(stream.id, function(e){
+              stream.emit(e.event,e.data)
+          });
+          stream.on('socket.io',function(e){
+              socket.emit(stream.id,e)
+          })
+          //
+          var NMS = new nms(stream);
+        })
+    })
+
+
 ToDo:
 ```bash
 the internet of everything...
