@@ -74,8 +74,4 @@ var shellServer     = require('../lib/shellServer'),
           var NMS = new nms(stream);
         })
     })
-
-
-ToDo:
-```bash
-the internet of everything...
+```
