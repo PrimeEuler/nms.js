@@ -58,6 +58,28 @@ connecting to nethack.alt.org
 NMS-HOST#nms.ssh --host nethack.alt.org --username nethack --password *****
 connecting to nethack.alt.org
 ```
+resulting in a ssh shell connection to nethack.alt.org
+```bash
+ ## nethack.alt.org - http://nethack.alt.org/
+ ##
+ ## Games on this server are recorded for in-progress viewing and playback!
+
+  Not logged in.
+
+  l) Login
+  r) Register new user
+  w) Watch games in progress
+
+  s) server info
+  m) MOTD/news (updated: 2015.12.07)
+
+  q) Quit
+
+
+
+  =>
+```
+
 
 Install
 =======
