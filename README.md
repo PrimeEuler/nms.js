@@ -40,6 +40,7 @@ sheldon.context.nms = {
     }
 }
 ```
+`minimist` agruments applied by lineman prompt:
 ```bash
 NMS-HOST#nms.ssh
 host:nethack.alt.org
@@ -47,12 +48,12 @@ username:nethack
 password:
 connecting to nethack.alt.org
 ```
-or
+`minimist` arguments applied by order:
 ```bash
 NMS-HOST#nms.ssh nethack.alt.org nethack guest
 connecting to nethack.alt.org
 ```
-or
+`minimist` arguments applied by name:
 ```bash
 NMS-HOST#nms.ssh --host nethack.alt.org --username nethack --password *****
 connecting to nethack.alt.org
