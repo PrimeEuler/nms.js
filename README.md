@@ -140,4 +140,5 @@ var shellServer     = require('../lib/shellServer'),
           var NMS = new nms(stream);
         })
     })
+webNMS.listen({port:8443});
 ```
