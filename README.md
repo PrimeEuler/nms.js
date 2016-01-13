@@ -38,15 +38,13 @@ var NMS = new nms(process.stdin, process.stdout)
     telnetStream    = require('../lib/telnet-client');
 
 var serverSocket = net.createServer(function(connection) {
-
+        //telnet IAC events
         var telnet = new telnetStream();  
-        
-        
         connection.pipe(telnet.rx)
         telnet.tx.pipe(connection)
-        
+        //
         var NMS = new nms(telnet.rx, telnet.tx)
-
+        //terminal dimensions
         telnet.tx.writeDo(telnet.options.indexOf('windowSize'));
 });
 
