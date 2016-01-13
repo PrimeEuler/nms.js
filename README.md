@@ -80,6 +80,19 @@ resulting in a ssh shell connection to nethack.alt.org
   =>
 ```
 
+Current tools:
+```javascript
+sheldon.context.nms = {
+    ssh     :function(host,username,password)...,
+    telnet  :function(host)...,
+    snmp    :function(request,host,community,oid)...,
+    net     :{
+                connect:function(path)...,
+                listen:function(path)...
+    }
+}
+```
+
 
 Install
 =======
