@@ -40,6 +40,23 @@ sheldon.context.nms = {
     }
 }
 ```
+```bash
+NMS-HOST#nms.ssh
+host:nethack.alt.org
+username:nethack
+password:
+connecting to nethack.alt.org
+```
+or
+```bash
+NMS-HOST#nms.ssh nethack.alt.org nethack guest
+connecting to nethack.alt.org
+```
+or
+```bash
+NMS-HOST#nms.ssh --host nethack.alt.org --username nethack --password *****
+connecting to nethack.alt.org
+```
 
 Install
 =======
