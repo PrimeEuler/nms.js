@@ -134,7 +134,7 @@ serverSocket.listen(9999,function(){
 });
 ```
 
-* [netNMS.js](https://github.com/PrimeEuler/nms.js/blob/master/example/webNMS.js) Web ([term.js](https://github.com/chjj/term.js)) interface into nms.js:
+* [webNMS.js](https://github.com/PrimeEuler/nms.js/blob/master/example/webNMS.js) Web ([term.js](https://github.com/chjj/term.js)) interface into nms.js:
 ```javascript
 var shellServer     = require('../lib/shellServer'),
     nms             = require('../'),
