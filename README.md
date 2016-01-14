@@ -79,7 +79,34 @@ resulting in a ssh shell connection to nethack.alt.org
 
   =>
 ```
-
+sheldon.context:
+```javascript
+sheldon.context = {
+    os: require('os'),
+    /*
+    os:{ endianness: [Function: getEndianness],                                        
+          hostname: [Function: getHostname],                                            
+          loadavg: [Function: getLoadAvg],                                              
+          uptime: [Function: getUptime],                                                
+          freemem: [Function: getFreeMem],                                              
+          totalmem: [Function: getTotalMem],                                            
+          cpus: [Function: getCPUs],                                                    
+          type: [Function: getOSType],                                                  
+          release: [Function: getOSRelease],                                            
+          networkInterfaces: [Function: getInterfaceAddresses],                         
+          arch: [Function],                                                             
+          platform: [Function],                                                         
+          tmpdir: [Function],                                                           
+          tmpDir: [Function],                                                           
+          getNetworkInterfaces: [Function: deprecated],                                 
+          EOL: '\r\n' }
+    */
+    terminal:{
+        { width: [Function], length: [Function] } 
+    },
+    exit: [Funtion]
+}
+```
 Current tools:
 ```javascript
 sheldon.context.nms = {
