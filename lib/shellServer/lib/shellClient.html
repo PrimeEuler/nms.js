@@ -45,7 +45,7 @@
         "class": 'new-div-window'
     }).appendTo("body");
     $('#TERMINAL').click(function () {
-                var stream = ss.createStream({objectMode: false, encoding:'utf8'})// {decodeStrings: false,  objectMode: true});//encoding: 'utf-8',
+                var stream = ss.createStream({encoding:'utf8',decodeStrings: false})// {decodeStrings: false,  objectMode: true});//encoding: 'utf-8',
                 //stream.setEncoding('utf8');
                 var terminal = new Terminal({ cols: 80, rows:24, screenKeys: true, convertEol:true });
                 ss(socket).emit('TERMINAL', stream, terminal.options);
