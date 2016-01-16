@@ -54,43 +54,49 @@
                     console.log(e)
                     stream.emit(e.event,e.data);
                 });
-                stream.width = (terminal.cols * 8) + 30;
-                stream.height = (terminal.rows * 15) + 50;
+                terminal.colsWidth = 8
+                terminal.rowsHeight = 15
+                stream.width = (terminal.cols * terminal.colsWidth) + 30;    //80 * 8 = 640 + border
+                stream.height = (terminal.rows * terminal.rowsHeight) + 50 ;  //24 * 20 = 480 + border
+                console.log('stream :', stream.width, stream.height)
                 //IOCRL
                 stream.ioCTL = function(event){
                     var p = {
                         event:event.type,
                         position: $(event.target).dialog("option", "position"),
-                        height: Math.round($(event.target).dialog('option', 'height')),
-                        width: Math.round($(event.target).dialog('option', 'width')),
+                        height: Math.round($(event.target).dialog('option', 'height')) +1,
+                        width: Math.round($(event.target).dialog('option', 'width'))+1,
                         minHeight: $(event.target).dialog('option', 'minHeight'),
                         minWidth: $(event.target).dialog('option', 'minWidth')
                     }
+                    console.log(' local event:',p)
                     //TIOCSWINSZ
                     if(event.type.indexOf('resize') > -1){
                         
                         var e = {
                             event:'resize',
                             data:{
-                                rows:Math.round((p.height - 50)/15),
-                                cols:Math.round((p.width - 30)/8),
+                                rows:Math.round((p.height - 50)/terminal.colsWidth),
+                                cols:Math.round((p.width - 30)/terminal.rowsHeight),
                             }
                         };
-                        terminal.resize(e.data.cols,e.data.rows)
+                        console.log(' local resize:',e.data.cols,e.data.rows)
+                        //terminal.resize(e.data.cols,e.data.rows)
                         ss(socket).emit(stream.id,e);
                     }
                 };
                 streamUI(stream);
                 terminal.open(document.getElementById(stream.id));
                 terminal.on('resize',function(){
-                    console.log(terminal.cols,terminal.rows)
+                    console.log('term:',terminal.cols,terminal.rows)
                 })
                 
                 
                 stream.on('resize', function(e){
+                    console.log('stream resize:',e.cols,e.rows)
                     terminal.resize(e.cols,e.rows)
-                    stream.width = (terminal.cols * 8) + 60;
-                    stream.height = (terminal.rows * 15) + 100;
+                    stream.width = (terminal.cols * terminal.colsWidth) + 50;
+                    stream.height = (terminal.rows * terminal.rowsHeight) + 50 ;
                     $( "#" + stream.id ).dialog( "option", "width", stream.width );
                     $( "#" + stream.id ).dialog( "option", "height", stream.height );
                 });
