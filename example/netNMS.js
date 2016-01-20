@@ -9,7 +9,7 @@ var serverSocket = net.createServer(function(connection) {
         
         connection.pipe(telnet.rx)
         telnet.tx.pipe(connection)
-        
+        //connection.setEncoding('utf8')
         var NMS = new nms(telnet.rx, telnet.tx)
 
         telnet.tx.writeDo(telnet.options.indexOf('windowSize'));

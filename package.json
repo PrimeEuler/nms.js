@@ -2,7 +2,7 @@
   "name": "nms.js",
   "description": "Network management system",
   "author": "Jeremy Ebert",
-  "version": "0.0.5",
+  "version": "0.0.51",
   "dependencies": {
         "ssh2": "^0.4.8",
         "snmp-native":"1.0.17",
