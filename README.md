@@ -182,4 +182,6 @@ var shellServer     = require('../lib/shellServer'),
     })
     webNMS.listen({port:8443});
 ```
-* [beaglebone-black webNMS demo](https://webnms.ddns.net:8443) username:guest, password:test13
+* [beaglebone-black webNMS demo](https://webnms.ddns.net:8443) 
+    username:guest
+    password:test13
