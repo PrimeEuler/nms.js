@@ -11,7 +11,7 @@
         "request": "^2.27.0",
         "term.js": "0.0.7",
         "minimist": "^1.1.3",
-        "lodash": "^3.10.0",
+        "lodash": ">=4.17.11",
         "keypress": "^0.2.1",
         "socket.io": "^1.1.5",
         "socket.io-stream": "^0.9.0",
